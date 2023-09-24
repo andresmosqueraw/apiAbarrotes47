@@ -1,14 +1,8 @@
 <?php
 require_once "controller/routesControler.php";
 require_once "controller/userController.php";
-require_once "controller/visitaController.php";
-require_once "controller/vehiculoController.php";
-require_once "controller/salidaController.php";
 require_once "controller/loginController.php";
 require_once "model/usersModel.php";
-require_once "model/visitaModel.php";
-require_once "model/vehiculoModel.php";
-
 
 
 header('Access-Control-Allow-Headers: Content-Type');
