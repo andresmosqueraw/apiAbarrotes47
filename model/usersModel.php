@@ -8,10 +8,12 @@ class ModelUsers{
         $cantUsu=self::getMail($data["usu_usuario"]);
         if ($cantMail==0){
             if ($cantUsu == 0){               
-                $query= "INSERT INTO usuario (usu_id,usu_usuario, usu_contra, usu_mail, rol_id,usu_dateUpdate,usu_identifier,usu_key,usu_status) VALUES (NULL,:usu_usuario, :usu_contra,:usu_mail, :rol_id, :usu_dateUpdate,:usu_identifier,:usu_key,:usu_status);";            
+                $query= "INSERT INTO usuario (usu_id, usu_nombre, usu_apellido, usu_usuario, usu_contra, usu_mail, rol_id,usu_dateUpdate,usu_identifier,usu_key,usu_status) VALUES (NULL,:usu_usuario, :usu_contra,:usu_mail, :rol_id, :usu_dateUpdate,:usu_identifier,:usu_key,:usu_status);";            
                 $status="0";
                 $statement  = Connection::conecction()->prepare($query);
                 $statement-> bindParam(":usu_usuario", ($data["usu_usuario"]),PDO::PARAM_STR);
+                $statement->bindParam(":usu_nombre", $data["usu_nombre"], PDO::PARAM_STR);
+                $statement->bindParam(":usu_apellido", $data["usu_apellido"], PDO::PARAM_STR);
                 $statement-> bindParam(":usu_contra",  ($data["usu_contra"]),PDO::PARAM_STR);
                 $statement-> bindParam(":usu_mail", $data["usu_mail"],PDO::PARAM_STR);
                 $statement-> bindParam(":rol_id", $data["rol_id"],PDO::PARAM_STR);
@@ -23,7 +25,6 @@ class ModelUsers{
                 $statement-> closeCursor();
                 $statement= null;
                 $query = "";
-               
             }else{
                 $mesage ="Usuario ya existe";
             }    
@@ -50,7 +51,7 @@ class ModelUsers{
 
     static public function getUsers($param){
         $param =  is_numeric($param) ? $param : 0;
-        $query ="SELECT usuario.usu_id, usuario.usu_usuario, usuario.usu_mail, usuario.rol_id, usu_dateUpdate,
+        $query ="SELECT usuario.usu_id, usuario.usu_usuario, usuario.usu_nombre, usuario.usu_apellido, usuario.usu_mail, usuario.rol_id, usu_dateUpdate,
         rol.rol_id, rol.rol_descripcion
         FROM usuario
         INNER JOIN rol ON usuario.rol_id = rol.rol_id";

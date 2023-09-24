@@ -22,25 +22,6 @@ class Connection{
     static public function  ultimo(){
         return self::$conne->lastInsertId(); 
     }
-
-    static public function conecction2(){
-        try {
-            $con = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
-            print_r($con);
-            if (mysqli_connect_error()) {
-                $mensaje = array(
-                    "COD" => "000",
-                    "MENSAJE" => (ERROR_CON . mysqli_connect_error())
-                );
-            };
-        } catch (Exception $e) {
-            $mensaje = array(
-                "COD" => "000",
-                "MENSAJE" => (ERROR_CON . $e)
-            );
-            echo ($e->getMessage());
-        }
-    }
 }
 
 ?>
